@@ -1,0 +1,179 @@
+{
+  "meta": {
+    "title": "Prashant Jadhav | Specjalista ds. bezpieczeństwa informacji",
+    "description": "Portfolio Prashanta Jadhav, specjalisty ds. bezpieczeństwa informacji. Operacje cyberbezpieczeństwa, monitoring sieci, informatyka śledcza i automatyzacja procesów."
+  },
+  "accessibility": {
+    "skipToContent": "Przejdź do treści",
+    "languageSelection": "Wybór języka",
+    "openMenu": "Otwórz menu",
+    "closeMenu": "Zamknij menu",
+    "openImage": "Powiększ grafikę",
+    "closeModal": "Zamknij podgląd",
+    "github": "GitHub",
+    "linkedin": "LinkedIn",
+    "orcid": "ORCID",
+    "email": "Mail",
+    "mobileNavigation": "Nawigacja mobilna"
+  },
+  "navigation": {
+    "home": "Start",
+    "about": "O mnie",
+    "expertise": "Kompetencje",
+    "experience": "Doświadczenie",
+    "credentials": "Certyfikaty",
+    "projects": "Projekty",
+    "academic": "Edukacja",
+    "contact": "Kontakt",
+    "brand": "PJ"
+  },
+  "hero": {
+    "eyebrow": "BEZPIECZEŃSTWO • CYBER • SIECI",
+    "hello": "Cześć, jestem",
+    "name": "Prashant Jadhav",
+    "headline": "Specjalista ds. bezpieczeństwa informacji | Cyberbezpieczeństwo i operacje sieciowe",
+    "roles": [
+      "Stażysta IT, analityk sieci",
+      "Stażysta ds. cyberbezpieczeństwa i informatyki śledczej"
+    ],
+    "description": "Specjalista ds. bezpieczeństwa informacji z praktycznym doświadczeniem w operacjach cyberbezpieczeństwa, monitorowaniu sieci, informatyce śledczej i automatyzacji procesów.",
+    "featuredProject": "Zobacz projekty",
+    "contactButton": "Napisz do mnie",
+    "location": "Pune, Indie"
+  },
+  "intro": {
+    "title": "Wdrażam portfolio",
+    "subtitle": "Przygotowuję środowisko chmurowe",
+    "progressLabel": "Postęp uruchamiania portfolio",
+    "skip": "Pomiń intro",
+    "stages": {
+      "azure": "Inicjalizacja infrastruktury",
+      "automation": "Uruchamianie potoku CI/CD",
+      "interface": "Wdrażanie interfejsu portfolio"
+    }
+  },
+  "about": {
+    "title": "O mnie",
+    "subtitle": "Operacje cyberbezpieczeństwa, monitoring sieci, informatyka śledcza i automatyzacja procesów.",
+    "paragraph1": "Specjalista ds. bezpieczeństwa informacji z praktycznym doświadczeniem w operacjach cyberbezpieczeństwa, monitorowaniu sieci, informatyce śledczej i automatyzacji procesów.",
+    "paragraph2": "Pracuję z Power Automate, Pythonem, PowerShellem, AWS i narzędziami bezpieczeństwa oraz buduję przepływy automatyzacji i rozwiązania bezpieczeństwa wspierane przez AI, aby usprawniać monitoring, dokumentację i efektywność operacyjną.",
+    "paragraph3": "58. miejsce (Top 2%) w NahamCon CTF 2024 wśród 3,859 zespołów.",
+    "facts": [
+      "B.Tech, informatyka, CGPA 7.5",
+      "eJPTv2",
+      "Google Cybersecurity Professional Certificate",
+      "NahamCon CTF 2024: 58. miejsce wśród 3,859 zespołów"
+    ]
+  },
+  "expertise": {
+    "title": "Kompetencje",
+    "subtitle": "Umiejętności z operacji bezpieczeństwa, automatyzacji, sieci i narzędzi bezpieczeństwa.",
+    "cards": {
+      "securityOps": {
+        "title": "Bezpieczeństwo i operacje",
+        "description": "Monitoring bezpieczeństwa, ocena podatności, informatyka śledcza, reagowanie na incydenty, analiza sieci i dokumentacja bezpieczeństwa."
+      },
+      "automation": {
+        "title": "Automatyzacja i skrypty",
+        "description": "Skrypty i automatyzacja przepływów w Pythonie, PowerShellu, Bashu i Power Platform."
+      },
+      "securityTools": {
+        "title": "Narzędzia bezpieczeństwa",
+        "description": "Narzędzia do testów bezpieczeństwa, monitoringu, informatyki śledczej i analizy sieci."
+      },
+      "platforms": {
+        "title": "Chmura, sieci, dane i ramy",
+        "description": "Platformy chmurowe, sieci, dane i uczenie maszynowe oraz ramy bezpieczeństwa."
+      }
+    }
+  },
+  "experience": {
+    "title": "Doświadczenie",
+    "subtitle": "Staże w operacjach sieciowych i cyberbezpieczeństwie.",
+    "items": {
+      "corning": {
+        "title": "Stażysta IT [analityk sieci]",
+        "dates": "styczeń 2026 do teraz",
+        "description": "Monitoruję i rozwiązuję problemy z łącznością, wydajnością i bezpieczeństwem sieci korporacyjnej, aby wspierać niezawodne operacje IT. Pomagam w konfiguracji sieci bezprzewodowej, monitorowaniu punktów dostępowych i weryfikacji łączności w środowiskach korporacyjnych. Zbudowałem przepływ Power Automate do obsługi powiadomień o pracach serwisowych dostawców ISP, aktualizacji rejestrów i powiadamiania zespołu. Dokumentuję problemy techniczne, kroki diagnostyczne i rozwiązania, aby poprawić spójność operacyjną i dzielenie się wiedzą."
+      },
+      "cyberSecured": {
+        "title": "Stażysta ds. cyberbezpieczeństwa i informatyki śledczej",
+        "dates": "kwiecień 2025 do czerwiec 2025",
+        "description": "Wspierałem śledztwa z zakresu cyberbezpieczeństwa i informatyki śledczej przez przegląd artefaktów, analizę logów i zbieranie materiału dowodowego. Używałem narzędzi takich jak Autopsy, FTK Imager i Wireshark do wsparcia procesów śledczych i analizy technicznej. Dokumentowałem ustalenia i współtworzyłem raporty do ocen bezpieczeństwa i badań śledczych."
+      }
+    }
+  },
+  "credentials": {
+    "title": "Certyfikaty",
+    "subtitle": "Certyfikaty z cyberbezpieczeństwa.",
+    "certificationLinkLabel": "Otwórz certyfikat {{name}}",
+    "courseLinkLabel": "Otwórz kurs {{name}}",
+    "certificationsTitle": "Certyfikaty",
+    "courses": {
+      "title": "Ukończone kursy",
+      "itemsCount": "{{count}} pozycji",
+      "categories": {
+        "cloudDevOpsSystems": "Chmura, DevOps i systemy operacyjne",
+        "databasesAnalytics": "Bazy danych i analityka",
+        "processAutomation": "Automatyzacja procesów"
+      }
+    }
+  },
+  "projects": {
+    "title": "Projekty",
+    "subtitle": "Automatyzacja bezpieczeństwa, wykrywanie włamań i monitoring punktów końcowych.",
+    "actions": {
+      "viewRepository": "Zobacz repozytorium",
+      "projectGallery": "Galeria projektu",
+      "hideProjectGallery": "Ukryj galerię"
+    },
+    "ispAutomation": {
+      "title": "Automatyzacja powiadomień o pracach serwisowych dostawców ISP",
+      "tagline": "Przepływ Power Automate do obsługi mailowych powiadomień o pracach serwisowych dostawców ISP.",
+      "description": "Zbudowałem przepływ Power Automate, który przetwarza mailowe powiadomienia o pracach serwisowych dostawców ISP i automatyzuje powtarzalne zadania ewidencji. Przepływ odczytuje treść wiadomości, wyciąga szczegóły prac, aktualizuje rejestry i powiadamia zespół o potrzebie dalszych działań."
+    },
+    "intrusionDetection": {
+      "title": "System wykrywania włamań oparty na uczeniu maszynowym",
+      "tagline": "Wykrywanie podejrzanego ruchu sieciowego w czasie rzeczywistym modelem Random Forest, z interfejsem Flask i wdrożeniem na AWS.",
+      "description": "Zbudowałem system wykrywania włamań w czasie rzeczywistym, który modelem Random Forest identyfikuje podejrzany ruch sieciowy ze skutecznością 95%. Opracowałem interfejs w Flask i wdrożyłem rozwiązanie na AWS, aby wspierać skalowalny monitoring bezpieczeństwa wspomagany przez AI."
+    },
+    "endpointLab": {
+      "title": "Laboratorium monitorowania punktów końcowych i analizy zachowania złośliwego oprogramowania",
+      "tagline": "Kontrolowana analiza laboratoryjna zachowania przechwytywania danych wejściowych.",
+      "description": "Przeprowadziłem kontrolowaną analizę laboratoryjną zachowania przechwytywania danych wejściowych, aby zrozumieć monitorowanie punktów końcowych, wykrywanie i koncepcje bezpieczeństwa defensywnego."
+    }
+  },
+  "academic": {
+    "title": "Edukacja",
+    "subtitle": "Wykształcenie.",
+    "education": {
+      "title": "Edukacja",
+      "items": {
+        "btech": {
+          "title": "B.Tech, informatyka, CGPA 7.5",
+          "institution": "Vishwakarma Institute of Information Technology, Pune",
+          "period": "listopad 2022 do teraz"
+        }
+      }
+    },
+    "teaching": {
+      "title": "Prowadzone zajęcia",
+      "areas": []
+    },
+    "publications": {
+      "title": "Publikacje",
+      "read": "Pełny tekst",
+      "viewOrcid": "Zobacz profil ORCID"
+    }
+  },
+  "contact": {
+    "title": "Porozmawiajmy o cyberbezpieczeństwie, operacjach sieciowych, informatyce śledczej albo automatyzacji.",
+    "description": "Możesz napisać do mnie na LinkedIn albo e-mailem.",
+    "button": "Napisz do mnie na LinkedIn",
+    "emailButton": "Wyślij do mnie e-mail"
+  },
+  "footer": {
+    "copyright": "© 2026 Prashant Jadhav",
+    "backToTop": "Wróć na górę"
+  }
+}

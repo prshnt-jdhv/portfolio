@@ -1,0 +1,179 @@
+{
+  "meta": {
+    "title": "Prashant Jadhav | Information Security Professional",
+    "description": "Portfolio of Prashant Jadhav, an information security professional working in cybersecurity operations, network monitoring, digital forensics, and workflow automation."
+  },
+  "accessibility": {
+    "skipToContent": "Skip to content",
+    "languageSelection": "Language selection",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu",
+    "openImage": "Open image preview",
+    "closeModal": "Close preview",
+    "github": "GitHub",
+    "linkedin": "LinkedIn",
+    "orcid": "ORCID",
+    "email": "Mail",
+    "mobileNavigation": "Mobile navigation"
+  },
+  "navigation": {
+    "home": "Home",
+    "about": "About",
+    "expertise": "Expertise",
+    "experience": "Experience",
+    "credentials": "Certifications",
+    "projects": "Projects",
+    "academic": "Education",
+    "contact": "Contact",
+    "brand": "PJ"
+  },
+  "hero": {
+    "eyebrow": "SECURITY • CYBER • NETWORKS",
+    "hello": "Hi, I'm",
+    "name": "Prashant Jadhav",
+    "headline": "Information Security Professional | Cybersecurity & Network Operations",
+    "roles": [
+      "IT Intern, Network Analyst",
+      "Cybersecurity and Digital Forensics Intern"
+    ],
+    "description": "Information security professional with hands-on experience in cybersecurity operations, network monitoring, digital forensics, and workflow automation.",
+    "featuredProject": "View projects",
+    "contactButton": "Contact me",
+    "location": "Pune, India"
+  },
+  "intro": {
+    "title": "Deploying portfolio",
+    "subtitle": "Preparing the cloud environment",
+    "progressLabel": "Portfolio launch progress",
+    "skip": "Skip intro",
+    "stages": {
+      "azure": "Initializing infrastructure",
+      "automation": "Loading CI/CD pipeline",
+      "interface": "Deploying the portfolio interface"
+    }
+  },
+  "about": {
+    "title": "About me",
+    "subtitle": "Cybersecurity operations, network monitoring, digital forensics, and workflow automation.",
+    "paragraph1": "Information security professional with hands-on experience in cybersecurity operations, network monitoring, digital forensics, and workflow automation.",
+    "paragraph2": "Skilled in Power Automate, Python, PowerShell, AWS, and security tools, with experience building automation workflows and AI-assisted security solutions to improve monitoring, documentation, and operational efficiency.",
+    "paragraph3": "Ranked 58th (Top 2%) in NahamCon CTF 2024 among 3,859 teams.",
+    "facts": [
+      "B.Tech in Information Technology, CGPA 7.5",
+      "eJPTv2",
+      "Google Cybersecurity Professional Certificate",
+      "NahamCon CTF 2024: 58th of 3,859 teams"
+    ]
+  },
+  "expertise": {
+    "title": "Expertise",
+    "subtitle": "Skills used in security operations, automation, networking, and security tooling.",
+    "cards": {
+      "securityOps": {
+        "title": "Security & Operations",
+        "description": "Security monitoring, vulnerability assessment, digital forensics, incident response, network analysis, and security documentation."
+      },
+      "automation": {
+        "title": "Automation & Scripting",
+        "description": "Scripting and workflow automation with Python, PowerShell, Bash, and the Power Platform."
+      },
+      "securityTools": {
+        "title": "Security Tools",
+        "description": "Tools used for security testing, monitoring, forensics, and network analysis."
+      },
+      "platforms": {
+        "title": "Cloud, Networking, Data & Frameworks",
+        "description": "Cloud platforms, networking, data and machine learning, and security frameworks."
+      }
+    }
+  },
+  "experience": {
+    "title": "Experience",
+    "subtitle": "Internships in network operations and cybersecurity.",
+    "items": {
+      "corning": {
+        "title": "IT Intern [Network Analyst]",
+        "dates": "Jan 2026 to Present",
+        "description": "Monitor and troubleshoot enterprise network connectivity, performance, and security-related issues to support reliable IT operations. Assist with wireless network configuration, access point monitoring, and connectivity validation across enterprise environments. Built a Power Automate workflow to process ISP vendor maintenance notifications, update tracking records, and notify the team. Document technical issues, troubleshooting steps, and resolutions to improve operational consistency and knowledge sharing."
+      },
+      "cyberSecured": {
+        "title": "Cybersecurity and Digital Forensics Intern",
+        "dates": "Apr 2025 to Jun 2025",
+        "description": "Supported cybersecurity and digital forensics investigations through artifact review, log analysis, and evidence collection. Used tools such as Autopsy, FTK Imager, and Wireshark to support investigative workflows and technical analysis. Documented findings and contributed to reports for security assessments and forensic investigations."
+      }
+    }
+  },
+  "credentials": {
+    "title": "Certifications",
+    "subtitle": "Cybersecurity certifications.",
+    "certificationLinkLabel": "Open certification {{name}}",
+    "courseLinkLabel": "Open course {{name}}",
+    "certificationsTitle": "Certifications",
+    "courses": {
+      "title": "Completed courses",
+      "itemsCount": "{{count}} items",
+      "categories": {
+        "cloudDevOpsSystems": "Cloud, DevOps and operating systems",
+        "databasesAnalytics": "Databases and analytics",
+        "processAutomation": "Process automation"
+      }
+    }
+  },
+  "projects": {
+    "title": "Projects",
+    "subtitle": "Security automation, intrusion detection, and endpoint monitoring work.",
+    "actions": {
+      "viewRepository": "View repository",
+      "projectGallery": "Project gallery",
+      "hideProjectGallery": "Hide gallery"
+    },
+    "ispAutomation": {
+      "title": "ISP Vendor Maintenance Notification Automation",
+      "tagline": "A Power Automate workflow for ISP vendor maintenance email notifications.",
+      "description": "Built a Power Automate workflow to process ISP vendor maintenance email notifications and automate repeatable tracking tasks. Parsed incoming email content, extracted maintenance details, updated tracking records, and notified the team for timely follow-up."
+    },
+    "intrusionDetection": {
+      "title": "Machine Learning-Based Intrusion Detection System",
+      "tagline": "Real-time intrusion detection with a Random Forest model, Flask, and AWS.",
+      "description": "Built a real-time intrusion detection system using a Random Forest model to identify suspicious network traffic with 95% accuracy. Developed a Flask-based interface and deployed the solution on AWS to support scalable AI-assisted security monitoring."
+    },
+    "endpointLab": {
+      "title": "Endpoint Monitoring & Malware Behavior Analysis Lab",
+      "tagline": "A controlled security lab analysis of input-capture behavior.",
+      "description": "Conducted a controlled lab analysis of input-capture behavior to understand endpoint monitoring, detection, and defensive security concepts."
+    }
+  },
+  "academic": {
+    "title": "Education",
+    "subtitle": "Formal education.",
+    "education": {
+      "title": "Education",
+      "items": {
+        "btech": {
+          "title": "B.Tech in Information Technology, CGPA 7.5",
+          "institution": "Vishwakarma Institute of Information Technology, Pune",
+          "period": "Nov 2022 to Present"
+        }
+      }
+    },
+    "teaching": {
+      "title": "Courses taught",
+      "areas": []
+    },
+    "publications": {
+      "title": "Publications",
+      "read": "Read publication",
+      "viewOrcid": "View ORCID profile"
+    }
+  },
+  "contact": {
+    "title": "Let's talk about cybersecurity, network operations, digital forensics, or automation.",
+    "description": "You can reach me on LinkedIn or by email.",
+    "button": "Message me on LinkedIn",
+    "emailButton": "Send me an email"
+  },
+  "footer": {
+    "copyright": "© 2026 Prashant Jadhav",
+    "backToTop": "Back to top"
+  }
+}

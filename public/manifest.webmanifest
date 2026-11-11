@@ -1,0 +1,16 @@
+{
+  "name": "Prashant Jadhav | Information Security Professional",
+  "short_name": "Prashant Jadhav",
+  "description": "Cybersecurity and network operations portfolio",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#050b14",
+  "theme_color": "#050b14",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}

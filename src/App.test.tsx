@@ -1,0 +1,476 @@
+import { fireEvent, render, screen, waitFor } from "@testing-library/react";
+import App from "./App";
+import i18n, { resolveInitialLanguage } from "./i18n";
+import enTranslations from "./i18n/locales/en.json";
+import plTranslations from "./i18n/locales/pl.json";
+
+const collectLeafPaths = (
+  value: unknown,
+  parentPath = "",
+  output: string[] = [],
+) => {
+  if (Array.isArray(value)) {
+    value.forEach((item, index) => {
+      collectLeafPaths(item, `${parentPath}[${index}]`, output);
+    });
+    return output;
+  }
+
+  if (value && typeof value === "object") {
+    Object.entries(value as Record<string, unknown>).forEach(
+      ([key, nested]) => {
+        const nextPath = parentPath ? `${parentPath}.${key}` : key;
+        collectLeafPaths(nested, nextPath, output);
+      },
+    );
+    return output;
+  }
+
+  output.push(parentPath);
+  return output;
+};
+
+describe("Portfolio app", () => {
+  beforeEach(async () => {
+    localStorage.clear();
+    sessionStorage.clear();
+    window.history.replaceState({}, "", "/?lang=pl");
+    await i18n.changeLanguage("pl");
+  });
+
+  it("renders the Polish intro, progressbar, and no AWS branding", () => {
+    render(<App />);
+
+    expect(screen.getByText("Wdrażam portfolio")).toBeInTheDocument();
+    expect(
+      screen.getByText("Przygotowuję środowisko chmurowe"),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole("progressbar", {
+        name: "Postęp uruchamiania portfolio",
+      }),
+    ).toBeInTheDocument();
+    expect(screen.queryByText(/Patryk|Jabłoński/)).not.toBeInTheDocument();
+  });
+
+  it("renders the English intro when language comes from the URL", async () => {
+    window.history.replaceState({}, "", "/?lang=en");
+    await i18n.changeLanguage("en");
+
+    render(<App />);
+
+    expect(screen.getByText("Deploying portfolio")).toBeInTheDocument();
+    expect(
+      screen.getByText("Preparing the cloud environment"),
+    ).toBeInTheDocument();
+  });
+
+  it("skips the intro with the button and stores the session flag", async () => {
+    render(<App />);
+
+    fireEvent.click(screen.getByRole("button", { name: "Pomiń intro" }));
+
+    await waitFor(() => {
+      expect(screen.queryByText("Wdrażam portfolio")).not.toBeInTheDocument();
+      expect(sessionStorage.getItem("portfolio.intro.seen")).toBe("true");
+    });
+  });
+
+  it("skips the intro on Escape and stores the session flag", async () => {
+    render(<App />);
+
+    fireEvent.keyDown(window, { key: "Escape" });
+
+    await waitFor(() => {
+      expect(screen.queryByText("Wdrażam portfolio")).not.toBeInTheDocument();
+      expect(sessionStorage.getItem("portfolio.intro.seen")).toBe("true");
+    });
+  });
+
+  it("does not render the intro again when the session flag is already set", () => {
+    sessionStorage.setItem("portfolio.intro.seen", "true");
+
+    render(<App />);
+
+    expect(screen.queryByText("Uruchamiam portfolio")).not.toBeInTheDocument();
+    expect(screen.queryByText("Wdrażam portfolio")).not.toBeInTheDocument();
+  });
+
+  it("renders in Polish by default and has required section ids", () => {
+    sessionStorage.setItem("portfolio.intro.seen", "true");
+    render(<App />);
+
+    expect(
+      screen.getByRole("heading", { name: "Prashant Jadhav" }),
+    ).toBeInTheDocument();
+    expect(document.getElementById("home")).toBeInTheDocument();
+    expect(document.getElementById("about")).toBeInTheDocument();
+    expect(document.getElementById("expertise")).toBeInTheDocument();
+    expect(document.getElementById("experience")).toBeInTheDocument();
+    expect(document.getElementById("credentials")).toBeInTheDocument();
+    expect(document.getElementById("projects")).toBeInTheDocument();
+    expect(document.getElementById("academic")).toBeInTheDocument();
+    expect(document.getElementById("contact")).toBeInTheDocument();
+    expect(
+      screen.getByRole("heading", { name: "Projekty" }),
+    ).toBeInTheDocument();
+  });
+
+  it("switches language and updates html lang and url param", async () => {
+    sessionStorage.setItem("portfolio.intro.seen", "true");
+    render(<App />);
+
+    fireEvent.click(screen.getAllByRole("button", { name: "EN" })[0]);
+
+    expect(
+      await screen.findByRole("heading", {
+        name: "Projects",
+      }),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole("link", { name: "Contact me" }),
+    ).toBeInTheDocument();
+    expect(document.documentElement.lang).toBe("en");
+    expect(window.location.search).toContain("lang=en");
+
+    fireEvent.click(screen.getAllByRole("button", { name: "PL" })[0]);
+    expect(
+      await screen.findByRole("heading", {
+        name: "Projekty",
+      }),
+    ).toBeInTheDocument();
+    expect(document.documentElement.lang).toBe("pl");
+  });
+
+  it("renders localized hero contact CTA and points it to #contact", async () => {
+    sessionStorage.setItem("portfolio.intro.seen", "true");
+    render(<App />);
+
+    const plHeroContact = screen.getByRole("link", {
+      name: "Napisz do mnie",
+    });
+    expect(plHeroContact).toHaveAttribute("href", "#contact");
+    expect(plHeroContact).not.toHaveAttribute(
+      "href",
+      "https://linkedin.com/in/prashant-jadhav-53962a25b",
+    );
+
+    fireEvent.click(screen.getAllByRole("button", { name: "EN" })[0]);
+
+    const enHeroContact = await screen.findByRole("link", {
+      name: "Contact me",
+    });
+    expect(enHeroContact).toHaveAttribute("href", "#contact");
+  });
+
+  it("stores language selection in localStorage", async () => {
+    sessionStorage.setItem("portfolio.intro.seen", "true");
+    render(<App />);
+    fireEvent.click(screen.getAllByRole("button", { name: "EN" })[0]);
+
+    await waitFor(() => {
+      expect(localStorage.getItem("portfolio.language")).toBe("en");
+    });
+  });
+
+  it("has LinkedIn, repository, and email links, and no tel links", () => {
+    sessionStorage.setItem("portfolio.intro.seen", "true");
+    render(<App />);
+
+    const links = screen.getAllByRole("link");
+    const hrefs = links.map((link) => link.getAttribute("href"));
+
+    expect(hrefs).toContain(
+      "https://linkedin.com/in/prashant-jadhav-53962a25b",
+    );
+    expect(hrefs).toContain("mailto:prash.jadhav.45@gmail.com");
+    expect(
+      hrefs.some((href) => href?.includes("github.com/patrykj369")),
+    ).toBe(false);
+    expect(hrefs.some((href) => href?.startsWith("tel:"))).toBe(false);
+  });
+
+  it("renders contact email button in PL and EN with exact mailto address", async () => {
+    sessionStorage.setItem("portfolio.intro.seen", "true");
+    render(<App />);
+
+    const plEmailButton = screen.getByRole("link", {
+      name: "Wyślij do mnie e-mail",
+    });
+    expect(plEmailButton).toHaveAttribute(
+      "href",
+      "mailto:prash.jadhav.45@gmail.com",
+    );
+
+    fireEvent.click(screen.getAllByRole("button", { name: "EN" })[0]);
+
+    const enEmailButton = await screen.findByRole("link", {
+      name: "Send me an email",
+    });
+    expect(enEmailButton).toHaveAttribute(
+      "href",
+      "mailto:prash.jadhav.45@gmail.com",
+    );
+  });
+
+  it("renders four social icons in home and footer", () => {
+    sessionStorage.setItem("portfolio.intro.seen", "true");
+    const { container } = render(<App />);
+
+    expect(container.querySelectorAll("#home a.social-link")).toHaveLength(2);
+    expect(container.querySelectorAll("footer a.social-link")).toHaveLength(2);
+  });
+
+  it("updates translated email icon labels and titles when switching language", async () => {
+    sessionStorage.setItem("portfolio.intro.seen", "true");
+    render(<App />);
+
+    const plEmailIcons = screen.getAllByRole("link", {
+      name: "Mail",
+    });
+    expect(plEmailIcons).toHaveLength(2);
+    plEmailIcons.forEach((icon) => {
+      expect(icon).toHaveAttribute("title", "Mail");
+      expect(icon).toHaveAttribute(
+        "href",
+        "mailto:prash.jadhav.45@gmail.com",
+      );
+    });
+
+    fireEvent.click(screen.getAllByRole("button", { name: "EN" })[0]);
+
+    const enEmailIcons = await screen.findAllByRole("link", {
+      name: "Mail",
+    });
+    expect(enEmailIcons).toHaveLength(2);
+    enEmailIcons.forEach((icon) => {
+      expect(icon).toHaveAttribute("title", "Mail");
+      expect(icon).toHaveAttribute(
+        "href",
+        "mailto:prash.jadhav.45@gmail.com",
+      );
+    });
+  });
+
+  it("resolves initial language from URL first", () => {
+    window.history.replaceState({}, "", "/?lang=en");
+    expect(resolveInitialLanguage()).toBe("en");
+  });
+
+  it("does not contain phone-like text in translations", () => {
+    const plBundle = JSON.stringify(
+      i18n.getResourceBundle("pl", "translation"),
+    );
+    const enBundle = JSON.stringify(
+      i18n.getResourceBundle("en", "translation"),
+    );
+    const phoneRegex = /\+?\d[\d\s().-]{6,}/;
+
+    expect(phoneRegex.test(plBundle)).toBe(false);
+    expect(phoneRegex.test(enBundle)).toBe(false);
+  });
+
+  it("toggles mobile menu aria-expanded state", () => {
+    sessionStorage.setItem("portfolio.intro.seen", "true");
+    render(<App />);
+    const menuButton = screen.getByRole("button", { name: "Otwórz menu" });
+
+    expect(menuButton).toHaveAttribute("aria-expanded", "false");
+    fireEvent.click(menuButton);
+    expect(menuButton).toHaveAttribute("aria-expanded", "true");
+  });
+
+  it("renders credentials and grouped courses", () => {
+    sessionStorage.setItem("portfolio.intro.seen", "true");
+    render(<App />);
+
+    expect(
+      screen.getByRole("heading", {
+        name: "Certyfikaty",
+      }),
+    ).toBeInTheDocument();
+    expect(screen.getByText("eJPTv2")).toBeInTheDocument();
+    expect(
+      screen.getByText("Google Cybersecurity Professional Certificate"),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByText("TryHackMe Jr Penetration Tester Certificate"),
+    ).toBeInTheDocument();
+    expect(
+      screen.queryByText("Cisco Certified Network Associate (CCNA)"),
+    ).not.toBeInTheDocument();
+  });
+
+  it("renders resume projects without galleries or repository links", () => {
+    sessionStorage.setItem("portfolio.intro.seen", "true");
+    render(<App />);
+
+    expect(
+      screen.getByRole("heading", {
+        name: "Automatyzacja powiadomień o pracach serwisowych dostawców ISP",
+      }),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole("heading", {
+        name: "System wykrywania włamań oparty na uczeniu maszynowym",
+      }),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole("heading", {
+        name: "Laboratorium monitorowania punktów końcowych i analizy zachowania złośliwego oprogramowania",
+      }),
+    ).toBeInTheDocument();
+    expect(
+      screen.queryByRole("button", { name: "Galeria projektu" }),
+    ).not.toBeInTheDocument();
+    expect(
+      screen.queryByRole("link", { name: "Zobacz repozytorium" }),
+    ).not.toBeInTheDocument();
+    expect(screen.queryByText("Kod")).not.toBeInTheDocument();
+  });
+
+  it("renders all experience tag groups and the simplified footer", () => {
+    sessionStorage.setItem("portfolio.intro.seen", "true");
+    render(<App />);
+
+    expect(screen.getAllByText("Power Automate").length).toBeGreaterThan(0);
+    expect(screen.getAllByText("Wireshark").length).toBeGreaterThan(0);
+    expect(screen.getByText("© 2026 Prashant Jadhav")).toBeInTheDocument();
+    expect(screen.queryByText(/React/i)).not.toBeInTheDocument();
+  });
+
+  it("renders ten hero technologies", () => {
+    sessionStorage.setItem("portfolio.intro.seen", "true");
+    render(<App />);
+
+    const technologyNames = [
+      "Python",
+      "Docker",
+      "AWS",
+      "PowerShell",
+      "Wireshark",
+      "Splunk",
+      "Bash",
+      "Git",
+      "Kubernetes",
+      "Nmap",
+    ];
+
+    technologyNames.forEach((technology) => {
+      expect(screen.getAllByText(technology).length).toBeGreaterThan(0);
+    });
+  });
+
+  it("renders exactly three hero orbit rings", () => {
+    sessionStorage.setItem("portfolio.intro.seen", "true");
+    render(<App />);
+
+    expect(screen.getAllByTestId("hero-orbit-ring")).toHaveLength(3);
+  });
+
+  it("uses equal desktop layout for expertise and single-column layout for experience cards", () => {
+    sessionStorage.setItem("portfolio.intro.seen", "true");
+    const { container } = render(<App />);
+
+    const expertiseGrid = container.querySelector(
+      "#expertise .grid.items-stretch",
+    );
+    const experienceGrid = container.querySelector("#experience .grid.gap-4");
+
+    expect(expertiseGrid?.className).toContain("md:auto-rows-fr");
+    expect(experienceGrid?.className).not.toContain("md:grid-cols-3");
+    expect(experienceGrid?.className).not.toContain("md:auto-rows-fr");
+
+    const expertiseCards = container.querySelectorAll(
+      "#expertise .group\\/card.flex.h-full.flex-col",
+    );
+    const experienceCards = container.querySelectorAll(
+      "#experience .group\\/card.flex.flex-col.h-full",
+    );
+
+    expect(expertiseCards.length).toBeGreaterThan(0);
+    expect(experienceCards.length).toBeGreaterThan(0);
+  });
+
+  it("renders certification and course links from data with secure target attributes", () => {
+    sessionStorage.setItem("portfolio.intro.seen", "true");
+    render(<App />);
+
+    expect(screen.getByText("eJPTv2")).toBeInTheDocument();
+    expect(
+      screen.queryByRole("link", {
+        name: /Otwórz certyfikat/i,
+      }),
+    ).not.toBeInTheDocument();
+    expect(
+      screen.queryByRole("link", {
+        name: /Otwórz kurs/i,
+      }),
+    ).not.toBeInTheDocument();
+  });
+
+  it("keeps PL and EN translation key paths synchronized", () => {
+    const plPaths = collectLeafPaths(plTranslations).sort();
+    const enPaths = collectLeafPaths(enTranslations).sort();
+
+    expect(plPaths).toEqual(enPaths);
+  });
+
+  it("does not render en dash or em dash characters in visible text", () => {
+    sessionStorage.setItem("portfolio.intro.seen", "true");
+    const { container } = render(<App />);
+    const visibleText = container.textContent ?? "";
+
+    expect(visibleText).not.toMatch(/[—–]/);
+  });
+
+  it("marks the hero orbit as reduced motion and skips the intro when the media query requests it", async () => {
+    const originalMatchMedia = window.matchMedia;
+
+    Object.defineProperty(window, "matchMedia", {
+      writable: true,
+      value: (query: string) => ({
+        matches: query === "(prefers-reduced-motion: reduce)",
+        media: query,
+        onchange: null,
+        addEventListener: () => undefined,
+        removeEventListener: () => undefined,
+        addListener: () => undefined,
+        removeListener: () => undefined,
+        dispatchEvent: () => false,
+      }),
+    });
+
+    render(<App />);
+
+    await waitFor(() => {
+      expect(
+        document.querySelector('[data-reduced-motion="true"]'),
+      ).toBeInTheDocument();
+      expect(screen.queryByText("Wdrażam portfolio")).not.toBeInTheDocument();
+    });
+
+    Object.defineProperty(window, "matchMedia", {
+      writable: true,
+      value: originalMatchMedia,
+    });
+  });
+
+  it("applies pointer cursor classes to the language buttons", () => {
+    sessionStorage.setItem("portfolio.intro.seen", "true");
+    render(<App />);
+
+    const languageButtons = screen.getAllByRole("button", { name: /PL|EN/ });
+
+    languageButtons.forEach((button) => {
+      expect(button.className).toContain("cursor-pointer");
+    });
+  });
+
+  it("does not reference the legacy TechnologyOrbit component in the rendered app", () => {
+    sessionStorage.setItem("portfolio.intro.seen", "true");
+    render(<App />);
+
+    expect(screen.queryByText("TechnologyOrbit")).not.toBeInTheDocument();
+  });
+});
